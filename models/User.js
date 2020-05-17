@@ -47,15 +47,20 @@ class User {
         }
     }
     
-    login(callback){
-        this.cleanUp
-        userCollection.findOne({username: this.data.username}, (err, res)=>{
+    get login(){
+        return new Promise((resolve, reject) =>{
+            this.cleanUp
+        userCollection.findOne({username: this.data.username}).then((res)=>{
             if (res && res.password == this.data.password) {
-                callback('congrates')
+                resolve('congrates')
             } else {
-                callback('invalid')
+                reject('invalid')
             }
+        }).catch(()=>{
+            reject('please try again later.')
         })
+        })
+        
     }
 }
 
