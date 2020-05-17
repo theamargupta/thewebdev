@@ -46,6 +46,17 @@ class User {
             userCollection.insertOne(this.data)
         }
     }
+    
+    login(callback){
+        this.cleanUp
+        userCollection.findOne({username: this.data.username}, (err, res)=>{
+            if (res && res.password == this.data.password) {
+                callback('congrates')
+            } else {
+                callback('invalid')
+            }
+        })
+    }
 }
 
 module.exports = User
