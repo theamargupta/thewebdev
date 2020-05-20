@@ -1,5 +1,7 @@
 const userCollection = require('../db').collection('users')
 const validator = require("validator")
+const bcrypt = require("bcryptjs")
+
 class User {
     constructor(data){
         this.data = data;
@@ -13,7 +15,7 @@ class User {
         if (!validator.isEmail(data.email)) {errors.push("You must provide a valid email address.")}
         if (data.password == "") {errors.push("You must provide a password.")}
         if (data.password.length > 0 && data.password.length < 12) {errors.push("Password must be at least 12 characters.")}
-        if (data.password.length > 100) {errors.push("Password cannot exceed 100 characters.")}
+        if (data.password.length > 50) {errors.push("Password cannot exceed 50 characters.")}
         if (data.username.length > 0 && data.username.length < 3) {errors.push("Username must be at least 3 characters.")}
         if (data.username.length > 30) {errors.push("Username cannot exceed 30 characters.")}
     }
@@ -43,6 +45,9 @@ class User {
         this.cleanUp
         //step 2: if no error save the data
         if(!this.errors.length){
+            //hash user password
+            let salt =bcrypt.genSaltSync(10)
+            this.data.password =bcrypt.hashSync(this.data.password, salt)
             userCollection.insertOne(this.data)
         }
     }
@@ -51,7 +56,7 @@ class User {
         return new Promise((resolve, reject) =>{
             this.cleanUp
         userCollection.findOne({username: this.data.username}).then((res)=>{
-            if (res && res.password == this.data.password) {
+            if (res && bcrypt.compareSync(this.data.password, res.password)) {
                 resolve('congrates')
             } else {
                 reject('invalid')
