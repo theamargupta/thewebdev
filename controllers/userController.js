@@ -6,15 +6,20 @@ exports.login = function (req, res)  {
         req.session.user = {
             Username: user.data.username
         }
-        res.send(result)
+        req.session.save(()=>{
+            res.redirect('/')
+        })
     }).catch((err)=>{
-        res.send(err)
+        req.flash('err', e)
+        res.redirect('/')
     })
 }
 
 exports.logout = (req, res) => {
-    req.session.destroy()
-    res.send('you are now logout')
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
+    
 }
 
 exports.register = function (req, res)  {
