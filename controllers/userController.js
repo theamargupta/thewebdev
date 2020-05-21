@@ -12,8 +12,9 @@ exports.login = function (req, res)  {
     })
 }
 
-exports.logout = () => {
-    
+exports.logout = (req, res) => {
+    req.session.destroy()
+    res.send('you are now logout')
 }
 
 exports.register = function (req, res)  {
