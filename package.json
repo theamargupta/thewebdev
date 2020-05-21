@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node db.js",
     "watch": "nodemon db.js -e js,ejs,json,css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
