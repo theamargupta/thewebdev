@@ -1,6 +1,7 @@
 const userCollection = require('../db').db().collection('users')
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
+const md5 = require("md5")
 
 class User {
     constructor(data){
@@ -67,6 +68,7 @@ class User {
             let salt =bcrypt.genSaltSync(10)
             this.data.password =bcrypt.hashSync(this.data.password, salt)
             await userCollection.insertOne(this.data)
+            this.getAvatar
             res()
         } else {
             rej(this.errors)
@@ -80,6 +82,8 @@ class User {
             this.cleanUp
         userCollection.findOne({username: this.data.username}).then((res)=>{
             if (res && bcrypt.compareSync(this.data.password, res.password)) {
+                this.data = res
+                this.getAvatar
                 resolve('congrates')
             } else {
                 reject('Invalid Username or Password')
@@ -89,6 +93,10 @@ class User {
         })
         })
         
+    }
+    
+    get getAvatar (){
+        this.avatar = `https://gravatar.com/avatar/${md5(this.data.email)}?s=128`
     }
 }
 

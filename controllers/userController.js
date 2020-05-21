@@ -4,6 +4,7 @@ exports.login = function (req, res)  {
     let user = new User(req.body)
     user.login.then((result)=>{
         req.session.user = {
+            avatar: user.avatar,
             Username: user.data.username
         }
         req.session.save(()=>{
@@ -28,7 +29,8 @@ exports.register = function (req, res)  {
     let user= new User(req.body)
     user.register.then(()=>{
         req.session.user = {
-            username: user.data.username
+            username: user.data.username,
+            avatar: user.avatar
         }
         req.session.save(()=>{
             res.redirect('/')
@@ -45,7 +47,7 @@ exports.register = function (req, res)  {
 }
 exports.home = (req, res) => {
     if (req.session.user) {
-        res.render('home-dashboard', {username: req.session.user.username})
+        res.render('home-dashboard', {username: req.session.user.username, avatar: req.session.user.avatar})
     } else {
         res.render('home-guest', {err: req.flash('err'), regErr: req.flash('regErr')})
     }
