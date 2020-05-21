@@ -59,7 +59,7 @@ class User {
             if (res && bcrypt.compareSync(this.data.password, res.password)) {
                 resolve('congrates')
             } else {
-                reject('invalid')
+                reject('Invalid Username or Password')
             }
         }).catch(()=>{
             reject('please try again later.')
