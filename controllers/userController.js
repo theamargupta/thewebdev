@@ -1,5 +1,16 @@
 const User = require('../models/User')
 
+exports.mustLog = function(req, res, next) {
+    if(req.session.user) {
+        next()
+    } else {
+        req.flash("err", "you must be log in")
+        req.session.save(()=>{
+            res.redirect('/')
+        })
+    }
+}
+
 exports.login = function (req, res)  {
     let user = new User(req.body)
     user.login.then((result)=>{
