@@ -16,6 +16,11 @@ app.use(sessionOPtions)
 app.use(flash())
 const router = require('./router')
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user
+    next()
+})
+
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
