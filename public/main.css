@@ -1,8 +1,8 @@
 body, .tooltip
  {
   font-family: 'Open Sans', sans-serif;
+  background:url("blog3.png")
 }
-
 .header-bar {
   background-color: #000000;
 }

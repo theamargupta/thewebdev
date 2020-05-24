@@ -1,43 +1,211 @@
-<%- include('partials/header') %>
-
-
-<div class="container py-md-5" >
-<% err.forEach((message)=>{
-    %><div class="alert alert-danger text-center"><%= message %></div> <%
-}) %>
-  
-  <div class="row align-items-center">
-    <div class="col-lg-7 py-3 py-md-5">
-      <h1 class="display-3">Remember Writing?</h1>      
-      <p class="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
-    </div>
-    <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
-      <form action="/register" method="POST" id="registration-form">
-          
-        <% regErr.forEach((message)=>{
-          %><div class="alert alert-danger small"><%= message %></div> <%
-}) %>
-        
-          <div class="form-group">
-            <label for="username-register" class="text-muted mb-1"><small>Username</small></label>
-            <input name="username" id="username-register" class="form-control" type="text" placeholder="Pick a username" autocomplete="off">
-          </div>
-          
-          <div class="form-group">
-            <label for="email-register" class="text-muted mb-1"><small>Email</small></label>
-            <input name="email" id="email-register" class="form-control" type="text" placeholder="you@example.com" autocomplete="off">
-          </div>
-          
-          <div class="form-group">
-            <label for="password-register" class="text-muted mb-1"><small>Password</small></label>
-            <input name="password" id="password-register" class="form-control" type="password" placeholder="Create a password">
-          </div>
-          
-          <button type="submit" class="py-3 mt-4 btn btn-lg btn-success btn-block">Sign up for TheWebDev</button>
-          
-        </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>THE WEB DEV</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <style>
+    body{
+      background:url("blog3.png");
+    }
+    .button-top{
+      margin: 2rem;
+    }
+    .text-1{
+      font-weight: 500;
+    }
+    @media(max-width: 500px){
+      .button-top-1{
+        display: none;
+      }
+    }
+    .button-top-1{
+      color: #fff;
+    }
+    .button-hov:hover{
+      color: skyblue;
+    }
+    .head-top{
+      background: #000;
+    }
+    #logo{
+      height: 10vh;
+      margin: 1rem;
+    }
+    #logo img {
+      height: 10vh;
+    }
+    #footer {
+      margin-top: 30vh;
+    }
+  </style>
+<head>
+<body>
+  <header class="header-bar mb-3">
+    
+    
+    <div class="head-top">
+      
+    <div class="row justify-content-between align-items-center ">
+      <a href="/" class="text-white" id="logo"><img src="img.png"  alt=""></a>
+      <!--Buttons-->
+      <div class="d-flex justify-content-center button-top-1">
+        <!--Button for sign up-->
+        <div class="text-center">
+          <a href="" class="btn button-hov" data-toggle="modal" data-target="#signupPage">Sign up<i class="fas fa-user-plus ml-3"></i></a>
+        </div>
+    
+        <!--button for Signin Page-->
+        <div class="text-center">
+          <a href="" class="btn button-hov" data-toggle="modal" data-target="#signinPage">Login<i class="fas fa-sign-in-alt ml-3"></i></a>
+        </div>
       </div>
+      
     </div>
   </div>
+    </header>
   
-  <%- include('partials/footer')%>
+
+
+    <div class="container py-md-5" >
+
+      <div class="row align-items-center">
+        <div class="col-lg-7 py-3 py-md-5">
+          <h1 class="display-3">Remember Writing?</h1>      
+          <p class="lead text-muted text-1">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
+        </div>
+        </div>
+      </div>
+      <!-- < class="header-bar mb-3"> -->
+        <div class="row justify-content-center align-items-center button-top">
+  <!--Buttons-->
+  <div class="d-flex justify-content-center">
+        <!--Button for sign up-->
+        <div class="text-center">
+          <a href="" class="btn btn-primary" data-toggle="modal" data-target="#signupPage">Sign up<i class="fas fa-user-plus ml-3"></i></a>
+        </div>
+    
+        <!--button for Signin Page-->
+        <div class="text-center">
+          <a href="" class="btn btn-primary" data-toggle="modal" data-target="#signinPage">Login<i class="fas fa-sign-in-alt ml-3"></i></a>
+        </div>
+      </div>
+      
+    </div>
+      <!--Sign in Page Content-->
+      <div class="modal fade" id="signupPage">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            
+            <div class="modal-header text-center">
+              <h4 class="modal-title text-center w-100 font-weight-bold">Register</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-lable="close">&times;</button>
+            </div>
+            
+            <form action="/register" method="POST" id="registration-form">
+          
+        
+        
+<div class="modal-body mx-3">
+  <% regErr.forEach((message)=>{
+          %><div class="alert alert-danger small"><%= message %></div> <%
+}) %>
+              <div class="md-form mb-5">
+                <i class="fas fa-user prefix grey-text"></i>
+                <input name="username" id="username-register" type="text" class="form-control ">
+                <label>Username</label>
+              </div>
+              
+              
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="email" name="email" class="form-control ">
+                <label>Your Email</label>
+              </div>
+    
+    
+              <div class="md-form mb-5">
+                <i class="fas fa-lock prefix grey-text"></i>
+                <input name="password" type="password" class="form-control ">
+                <label>Your Password</label>
+              </div>
+            </div>
+    
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+      
+    <!--content of signin page-->
+    
+    <div class="modal fade" id="signinPage">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <div class="modal-header text-center">
+            <h3 class="modal-title w-100 dark-grey-text font-weight-bold">Sign In</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-lable="close">&times;</button>
+          </div>
+          
+          <form action="/login" method="POST">
+          <div class="modal-body mx-4">
+            <% err.forEach((message)=>{
+    %><div class="alert alert-danger text-center"><%= message %></div> <%
+}) %>
+            <div class="md-form">
+              
+              <input name="username" type="text" class="form-control ">
+              <label>Username</label>
+            </div>
+    
+            <div class="md-form">
+              <input name="password" type="password" class="form-control ">
+              <label>Password</label>
+              <!-- <p class="font-small blue-text d-flex justify-content-end">Forgot<a href="#" class="blue-text ml-1">Password?</a></p> -->
+            </div>
+    
+            <div class="text-center mb-3">
+              <button class="btn btn-primary btn-block z-depth-1a">Sign in</button>
+            </div>
+          </form>
+            
+            </div>
+          
+          </div>
+        
+        </div>
+        </div> 
+      </div>
+    
+  <!-- </header> -->
+<!-- footer begins -->
+<!-- <footer class="border-top text-center small text-muted py-3" id="footer">
+ 
+  <p class="m-0"> <a href="/" class="text-muted">TheWebDev</a> &copy; 2020</p>
+  <p class="m-0"> Made with ❤️ by <a href="/" class="text-muted">Amar Gupta</a></p>
+</footer> -->
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript"></script>
+
+
+
+
+</body>
+</html>

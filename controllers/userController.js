@@ -65,3 +65,19 @@ exports.home = (req, res) => {
         res.render('home-guest', {err: req.flash('err'), regErr: req.flash('regErr')})
     }
 }
+
+exports.ifUserExists = function(req, res, next) {
+    User.findByUsername(req.params.username).then(function(userDocument) {
+      req.profileUser = userDocument
+      next()
+    }).catch(function() {
+      res.render("404")
+    })
+  }
+  
+  exports.profilePostsScreen = function(req, res) {
+    res.render('profile', {
+      profileUsername: req.profileUser.username,
+      profileAvatar: req.profileUser.avatar
+    })
+  }
